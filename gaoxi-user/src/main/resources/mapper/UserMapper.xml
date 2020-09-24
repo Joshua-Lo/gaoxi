@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoxi.GaoxiUser.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.gaoxi.GaoxiUser.domain.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="registerTime" jdbcType="TIMESTAMP" property="registertime" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+  </resultMap>
+  <select id="getUser" resultType="com.gaoxi.GaoxiUser.domain.User">
+    select * from user where username =#{username}
+     and password=#{password};
+  </select>
+  <select id="selectByName" resultType="com.gaoxi.GaoxiUser.domain.User">
+    select * from user where username =#{username};
+  </select>
+</mapper>
