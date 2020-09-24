@@ -30,15 +30,18 @@ public class RegisterController {
 
     @ResponseBody
     @PostMapping("/submitRegister")
-    public R register(@RequestBody User user, HttpServletRequest request){
+    public R register(@RequestBody User user, HttpServletRequest request) {
         String username = user.getUsername();
         System.out.println(username);
-        R r = userservice.checkRepeat(user);
-        if (r.getMsg().equals("OK")){
-            R insert = userservice.insert(user);
-            return insert;
+        User user1 = userservice.checkRepeat(user);
+        if (user1 != null) {
+            return new R(400, "error", user1);
+        }
+        Integer insert = userservice.insert(user);
+        if (insert > 0) {
+            return new R(200, "success", insert);
         }else {
-            return r;
+            return new R(400,"error",0);
         }
     }
 

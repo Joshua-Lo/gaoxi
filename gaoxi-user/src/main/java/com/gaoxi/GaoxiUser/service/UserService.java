@@ -5,11 +5,11 @@ import com.gaoxi.GaoxiUser.domain.User;
 import com.gaoxi.GaoxiUser.vo.LoginParam;
 
 public interface UserService {
-    R checkRepeat(User user);
+    User checkRepeat(User user);
 
-    R insert(User user);
+    Integer insert(User user);
 
-    R getUser(LoginParam param);
+    User getUser(LoginParam param);
 
 
 }

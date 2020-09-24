@@ -44,27 +44,26 @@
         //创建一个编辑器
         //注册
         form.on('submit(demo2)', function (result) {
-            debugger
             var btn = $(this);
             console.log(result.field),
 
             //设置注册按钮不可点击，防止多次点击
             btn.text("提交中...").attr("disabled", "disabled").addClass("layui-disabled");
+            var resp=null;
             $.ajax({
                 url: "/login/submitLogin",
                 //data:JSON.stringify(params),
                 data: JSON.stringify(result.field),
                 type: "post",
                 dataType: "json",
-                contentType: "application/json;charsetset=UTF-8",//必须
+                contentType:"application/json;charset=UTF-8",//必须
                 success: function (res) {
                     btn.text("提交").attr("disabled", false).removeClass("layui-disabled");
-                    if (res.msg != 'OK') {
-                        layer.msg(res.msg);
-                        console.log(res.data)
-                        href.url="index"
+                    console.log(res)
+                    if (res.code == 200){
+                        window.location.href="/page/list"
                     }
-                }
+                },
             });
         })
     });

@@ -26,39 +26,57 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper mapper;
 
+    /**
+     * @date 17:39
+     * @MethodName checkRepeat 根据用户名查询是否有重名的用户
+     * @param
+     * @param user
+     * @return com.gaoxi.GaoxiUser.domain.User
+     */
     @Override
-    public R checkRepeat(User user) {
+    public User checkRepeat(User user) {
         User users = mapper.selectByName(user.getUsername());
         if (users!=null){
-            return R.fail();
-        }else {
-            return R.ok(user);
+            return users;
         }
-
+        return null;
     }
 
+    /**
+     * @date 17:40
+     * @MethodName insert 注册添加用户
+     * @param user
+     * @return java.lang.Integer
+     */
     @Override
-    public R insert(User user) {
+    public Integer insert(User user) {
         initUser(user);
         int insert = mapper.insert(user);
         if (insert>0){
-            return R.ok(user);
+            return insert;
         }else {
-            return R.fail();
+            return 0;
         }
     }
 
+    /**
+     * @date 17:40
+     * @MethodName getUser 根据用户名密码查询用户
+     * @param
+     * @param param
+     * @return com.gaoxi.GaoxiUser.domain.User
+     */
     @Override
-    public R getUser(LoginParam param) {
+    public User getUser(LoginParam param) {
         String password = DigestUtils.md5DigestAsHex(param.getPassword().getBytes());
         User user = mapper.getUser(param.getUsername(), password);
         if (user!=null){
             user.setLastlogintime(new Date());
             mapper.updateByPrimaryKey(user);
             System.out.println(user.getLastlogintime());
-            return R.ok(user);
+            return user;
         }
-        return R.fail();
+        return null;
     }
 
     private void initUser(User user) {

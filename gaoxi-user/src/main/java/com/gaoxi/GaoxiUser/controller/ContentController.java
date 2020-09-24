@@ -22,8 +22,8 @@ public class ContentController {
     @Resource
     private ArticleMapper articleMapper;
     @GetMapping("/list")
-    public R getArticleList(){
+    public void getArticleList(){
         List<Article> articles = articleMapper.selectAll();
-        return R.ok(articles);
+
     }
 }

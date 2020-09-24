@@ -1,6 +1,7 @@
 package com.gaoxi.GaoxiUser.controller;
 
 import com.gaoxi.GaoxiUser.config.R;
+import com.gaoxi.GaoxiUser.domain.User;
 import com.gaoxi.GaoxiUser.service.UserService;
 import com.gaoxi.GaoxiUser.vo.LoginParam;
 import org.apache.ibatis.annotations.Mapper;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName LoginController
@@ -26,12 +29,17 @@ public class LoginController {
     public String login(){
         return "login";
     }
+
     @PostMapping("/submitLogin")
     @ResponseBody
-    public R login(@RequestBody LoginParam param){
-        R user = userservice.getUser(param);
-        System.out.println(user.getData());
-        return user;
+    public R login(@RequestBody LoginParam param,HttpSession httpSession){
+        User user = userservice.getUser(param);
+        System.out.println(user.getUsername());
+        if (user!=null){
+            httpSession.setAttribute("user", user);
+            return new R(200,"success",user);
+        }
+        return new R(400,"error", user);
     }
 
 }
