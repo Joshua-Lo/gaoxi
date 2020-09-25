@@ -19,10 +19,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     Logger log = Logger.getLogger(LoginInterceptor.class);
 
-    /*@Autowired 
-    UserService userService;*/  
+    /*@Autowired
+    UserService userService;*/
       
-    /*@Value("${IGNORE_LOGIN}") 
+    /*@Value("${IGNORE_LOGIN}")
     Boolean IGNORE_LOGIN;*/
 
     @Override
@@ -34,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         if(path.equals("/login/submitLogin")
                 ||path.equals("/login")
                 ||path.equals("/reg")
-                ||path.equals("/reg/submitRegister")){//是否进行登陆拦截
+                ||path.equals("/reg/submitRegister")){
             return true;
         }
         //如果登录了，会把用户信息存进session  
@@ -81,4 +81,4 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         if(notLoginPaths.contains(path)) return false;
         return true;
     }*/
-}  
+}

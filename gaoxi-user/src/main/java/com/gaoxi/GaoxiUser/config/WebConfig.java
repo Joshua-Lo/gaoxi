@@ -32,7 +32,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // 日志拦截器
         //registry.addInterceptor(logInterceptor).addPathPatterns("/");
         // 登录拦截器
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns(notLoginInterceptPaths).excludePathPatterns("/login/submitLogin");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
+                excludePathPatterns(notLoginInterceptPaths).
+                excludePathPatterns("/login/submitLogin").
+                excludePathPatterns("/static/**").
+                excludePathPatterns("/layui/**");
+    }
+
+    // 这个方法是用来配置静态资源的，比如html，js，css，等等
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+
     }
 
     @Override
@@ -48,6 +59,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;
     }
+
+
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

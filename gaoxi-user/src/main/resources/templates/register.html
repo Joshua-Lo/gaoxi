@@ -109,9 +109,9 @@
                 contentType: "application/json;charsetset=UTF-8",//必须
                 success: function (res) {
                     btn.text("提交").attr("disabled", false).removeClass("layui-disabled");
-                    if (res.msg != 'OK') {
+                    if (res.code == 200) {
                         layer.msg(res.msg);
-
+                        window.location.href="/login";
                     }
                 }
             });

@@ -28,11 +28,11 @@ public class UserController {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<User> getAllUser(){
+    public R getAllUser(){
         List<User> users = mapper.selectAll();
         if (users.size()>0 && users!=null){
-            return users;
+            return new R(200,"success",users);
         }
-        return null;
+         return new R(400,"error",null);
     }
 }
